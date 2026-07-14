@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>메이비스튜디오 | 예약 · 지점 안내</title>
+
+<!-- ═══════════════════════════════════════════════════════════
+     아직 채워야 할 것 (파일에서 그대로 검색하세요)
+
+     1) 여기에_카카오톡_채널주소  →  http://pf.kakao.com/_____/chat
+     2) 여기에_노션_주소         →  Notion 공개 페이지 URL
+     3) 000-00-00000            →  사업자등록번호
+     4) 네이버 후기 OOO개         →  실제 후기 수 (모르면 그 줄 삭제)
+
+     ── 예약 링크: 현재 "네이버 예약" 사용 중 ─────────────────
+     스페이스클라우드로 바꾸려면 각 예약 버튼 위 주석의
+     주소를 href 안에 붙여넣으세요.
+     ═══════════════════════════════════════════════════════════ -->
+
+<meta name="description" content="메이비스튜디오 — 당신의 특별한 모임을 위한 프라이빗 공간. 홍대 30인 · 시청 15인 · 을지로 12인">
+<meta property="og:title" content="메이비스튜디오 | 예약 · 지점 안내">
+<meta property="og:description" content="당신의 특별한 모임을 위한 프라이빗 공간">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#F8F6F2">
+
+<link rel="stylesheet" as="style" crossorigin
+  href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+
+<style>
+  :root{
+    --ivory:#F8F6F2;
+    --paper:#FFFFFF;
+    --espresso:#3E332C;
+    --ink:#2A2521;
+    --stone:#6F655C;
+    --mist:#A79C92;
+    --line:#E7E1D9;
+    --moss:#4A5D4E;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+
+  html{ background:var(--ivory); }
+
+  body{
+    font-family:'Pretendard Variable',Pretendard,-apple-system,BlinkMacSystemFont,
+                'Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+    background:var(--ivory);
+    color:var(--ink);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+
+  .page{
+    max-width:440px;
+    margin:0 auto;
+    padding:28px 20px calc(48px + env(safe-area-inset-bottom));
+  }
+
+  /* ─────────── 프로필 ─────────── */
+  .profile{ text-align:center; }
+
+  .mark{
+    width:64px; height:64px;
+    margin:0 auto;
+    border-radius:50%;
+    background:var(--paper);
+    border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center;
+    font-size:24px; font-weight:600; letter-spacing:.04em;
+    color:var(--espresso);
+    overflow:hidden;
+  }
+  .mark img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+  .wordmark{
+    margin-top:14px;
+    font-size:20px; font-weight:500;
+    letter-spacing:.14em;
+    color:var(--espresso);
+  }
+  .wordmark-kr{
+    margin-top:4px;
+    font-size:13px; font-weight:400;
+    color:var(--mist);
+  }
+  .tagline{
+    margin-top:12px;
+    font-size:15px; font-weight:400;
+    color:var(--espresso);
+  }
+  .subline{
+    margin-top:4px;
+    font-size:13px; font-weight:400;
+    color:var(--stone);
+  }
+
+  /* ─────────── 섹션 ─────────── */
+  .group{ margin-top:26px; }
+
+  .eyebrow{
+    display:flex; align-items:baseline; justify-content:space-between;
+    margin-bottom:10px;
+  }
+  .eyebrow span:first-child{
+    font-size:11px; font-weight:500;
+    letter-spacing:.12em;
+    color:var(--mist);
+  }
+  .eyebrow span:last-child{
+    font-size:12px; font-weight:400;
+    color:var(--stone);
+  }
+
+  /* ─────────── 예약 버튼 (Primary) ─────────── */
+  .book{
+    position:relative;
+    display:block;
+    min-height:68px;
+    padding:14px 20px;
+    margin-bottom:10px;
+    border-radius:14px;
+    background:var(--espresso);
+    color:var(--paper);
+    text-decoration:none;
+    overflow:hidden;
+    transition:opacity .18s ease;
+  }
+  .book:last-child{ margin-bottom:0; }
+  .book:active{ opacity:.88; }
+  .book:focus-visible{ outline:2px solid var(--moss); outline-offset:3px; }
+
+  .book-title{
+    font-size:16px; font-weight:600;
+    line-height:1.4;
+    color:var(--paper);
+    padding-right:64px;
+  }
+  .book-sub{
+    margin-top:2px;
+    font-size:12.5px; font-weight:400;
+    line-height:1.5;
+    color:rgba(255,255,255,.72);
+    padding-right:64px;
+  }
+
+  /* ── 시그니처: 최대 인원 숫자 ── */
+  .cap{
+    position:absolute;
+    right:20px; top:50%;
+    transform:translateY(-50%);
+    text-align:right;
+    line-height:1;
+    pointer-events:none;
+  }
+  .cap-num{
+    display:block;
+    font-size:38px; font-weight:200;
+    letter-spacing:-.02em;
+    color:rgba(255,255,255,.30);
+    font-feature-settings:'tnum';
+  }
+  .cap-label{
+    display:block;
+    margin-top:4px;
+    font-size:9.5px; font-weight:400;
+    letter-spacing:.1em;
+    color:rgba(255,255,255,.38);
+  }
+
+  /* ─────────── 보조 버튼 (Secondary) ─────────── */
+  .link{
+    display:flex; align-items:center; gap:12px;
+    min-height:54px;
+    padding:0 18px;
+    margin-bottom:10px;
+    border:1px solid var(--line);
+    border-radius:14px;
+    background:var(--paper);
+    color:var(--espresso);
+    text-decoration:none;
+    transition:opacity .18s ease;
+  }
+  .link:last-child{ margin-bottom:0; }
+  .link:active{ opacity:.88; }
+  .link:focus-visible{ outline:2px solid var(--moss); outline-offset:3px; }
+
+  .link svg{
+    flex:none;
+    width:20px; height:20px;
+    stroke:var(--espresso);
+    stroke-width:1.5;
+    fill:none;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+  }
+  .link-body{ flex:1; min-width:0; }
+  .link-title{
+    font-size:15px; font-weight:500;
+    line-height:1.4;
+  }
+  .link-note{
+    font-size:12px; font-weight:400;
+    line-height:1.4;
+    color:var(--stone);
+  }
+  .chev{
+    flex:none;
+    width:16px; height:16px;
+    stroke:var(--mist);
+    stroke-width:1.5;
+    fill:none;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+  }
+
+  /* ─────────── 푸터 ─────────── */
+  .rule{
+    height:1px;
+    margin:32px 0 20px;
+    background:var(--line);
+    border:0;
+  }
+  .foot{
+    text-align:center;
+    font-size:11px; font-weight:400;
+    line-height:1.8;
+    color:var(--mist);
+  }
+  .foot a{ color:var(--mist); text-decoration:none; }
+
+  @media (prefers-reduced-motion:reduce){
+    *{ transition:none !important; animation:none !important; }
+  }
+</style>
+</head>
+
+<body>
+<main class="page">
+
+  <!-- ══ 프로필 ══ -->
+  <header class="profile">
+    <!-- 로고 교체: <img src="logo.png" alt="메이비스튜디오"> 를 아래 M 대신 넣으세요 -->
+    <div class="mark">M</div>
+
+    <h1 class="wordmark">MAYB STUDIO</h1>
+    <p class="wordmark-kr">메이비스튜디오</p>
+
+    <p class="tagline">당신의 특별한 모임을 위한 프라이빗 공간</p>
+    <p class="subline">홍대 30인 · 시청 15인 · 을지로 12인</p>
+  </header>
+
+  <!-- ══ 예약 ══ -->
+  <section class="group">
+    <div class="eyebrow">
+      <span>RESERVATION</span>
+      <span>인원 수로 골라보세요</span>
+    </div>
+
+    <!-- 홍대점 -->
+    <!-- 스페이스클라우드로 바꾸려면: https://www.spacecloud.kr/space/75503 -->
+    <a class="book"
+       href="https://m.booking.naver.com/booking/10/bizes/1553512/items/7259269"
+       target="_blank" rel="noopener">
+      <div class="book-title">홍대점 예약하기</div>
+      <div class="book-sub">파티 · 생일 · 뒤풀이 &nbsp;/&nbsp; 시간당 15,000원~</div>
+      <div class="cap">
+        <span class="cap-num">30</span>
+        <span class="cap-label">최대 인원</span>
+      </div>
+    </a>
+
+    <!-- 시청점 -->
+    <!-- 스페이스클라우드로 바꾸려면: https://www.spacecloud.kr/space/72787 -->
+    <a class="book"
+       href="https://m.booking.naver.com/booking/10/bizes/1460875/items/6922685"
+       target="_blank" rel="noopener">
+      <div class="book-title">시청점 예약하기</div>
+      <div class="book-sub">회의 · 스터디 · 영화 &nbsp;/&nbsp; 시간당 10,000원~</div>
+      <div class="cap">
+        <span class="cap-num">15</span>
+        <span class="cap-label">최대 인원</span>
+      </div>
+    </a>
+
+    <!-- 을지로점 -->
+    <!-- 스페이스클라우드로 바꾸려면: https://www.spacecloud.kr/space/79815 -->
+    <a class="book"
+       href="https://m.booking.naver.com/booking/10/bizes/1682774/items/7797751"
+       target="_blank" rel="noopener">
+      <div class="book-title">을지로점 예약하기</div>
+      <div class="book-sub">데이트 · 영화 · 촬영 &nbsp;/&nbsp; 시간당 10,000원~</div>
+      <div class="cap">
+        <span class="cap-num">12</span>
+        <span class="cap-label">최대 인원</span>
+      </div>
+    </a>
+  </section>
+
+  <!-- ══ 보조 ══ -->
+  <section class="group">
+
+    <!-- 카카오톡 ⚠️ 주소 채워넣기 -->
+    <a class="link" href="여기에_카카오톡_채널주소" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9.6 9.6 0 0 1-2.2-.3L5 21l1-3.7A8.2 8.2 0 0 1 3 11.5 8.4 8.4 0 0 1 12 3a8.4 8.4 0 0 1 9 8.5Z"/>
+      </svg>
+      <div class="link-body">
+        <div class="link-title">카카오톡으로 바로 문의하기</div>
+        <div class="link-note">평일 10:00–19:00 응답</div>
+      </div>
+      <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>
+    </a>
+
+    <!-- 네이버 블로그 -->
+    <a class="link" href="https://blog.naver.com/mayb_studio" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <rect x="3" y="4" width="18" height="16" rx="2.5"/>
+        <circle cx="8.5" cy="9.5" r="1.5"/>
+        <path d="m3.5 17 4.8-4.3a1.6 1.6 0 0 1 2.2 0L16 18"/>
+        <path d="m14 14 1.8-1.6a1.6 1.6 0 0 1 2.2 0l2.5 2.3"/>
+      </svg>
+      <div class="link-body">
+        <div class="link-title">공간 사진 · 이용 후기 보기</div>
+        <div class="link-note">네이버 후기 OOO개 · 평점 4.9</div>
+      </div>
+      <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>
+    </a>
+
+    <!-- 이용 안내 ⚠️ 주소 채워넣기 -->
+    <a class="link" href="여기에_노션_주소" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8Z"/>
+        <path d="M14 3v5h5"/><path d="M9 13h6"/><path d="M9 17h4"/>
+      </svg>
+      <div class="link-body">
+        <div class="link-title">이용 안내 · 3개 지점 비교</div>
+        <div class="link-note">가격 · 시설 · 주차 · 이용 규정</div>
+      </div>
+      <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>
+    </a>
+
+    <!-- 인스타그램 -->
+    <a class="link" href="https://www.instagram.com/may.b_studio/" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <rect x="3" y="3" width="18" height="18" rx="5"/>
+        <circle cx="12" cy="12" r="4"/>
+        <circle cx="17.3" cy="6.7" r=".6" fill="currentColor" stroke="none"/>
+      </svg>
+      <div class="link-body">
+        <div class="link-title">인스타그램 @may.b_studio</div>
+      </div>
+      <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>
+    </a>
+  </section>
+
+  <!-- ══ 푸터 ══ -->
+  <hr class="rule">
+  <footer class="foot">
+    운영시간 10:00 – 22:00 · 연중무휴<br>
+    홍대점 · 시청점 · 을지로점<br>
+    메이비스튜디오 · 사업자등록번호 000-00-00000
+  </footer>
+
+</main>
+</body>
+</html>
